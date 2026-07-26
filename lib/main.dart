@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moderation_by_firebase_ai/feature/view/moderation_page.dart';
+import 'package:moderation_by_firebase_ai/feature/moderation/presentation/pages/moderation_page.dart';
 
 void main() {
   runApp(const MyApp());
