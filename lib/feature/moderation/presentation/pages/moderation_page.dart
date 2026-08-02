@@ -18,20 +18,48 @@ class ModerationPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Moderation Page'), centerTitle: true),
         body: const ModerationBody(),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(
-            top: 15.h,
-            left: 20.w,
-            right: 20.w,
-            bottom: 25.h,
-          ),
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity, 48.h),
-            ),
-            child: const Text('Check Result'),
-          ),
+        bottomNavigationBar: BlocBuilder<ModerationBloc, ModerationState>(
+          builder: (context, state) {
+            return Padding(
+              padding: EdgeInsets.only(
+                top: 15.h,
+                left: 20.w,
+                right: 20.w,
+                bottom: 25.h,
+              ),
+              child: ElevatedButton(
+                onPressed: state.isUploading || state.selectedAsset.isEmpty
+                    ? null
+                    : () {
+                        context.read<ModerationBloc>().add(
+                          const UploadMediaEvent(),
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  minimumSize: Size(double.infinity, 48.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                ),
+                child: state.isUploading
+                    ? SizedBox(
+                        height: 22.h,
+                        width: 22.h,
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        state.selectedAsset.isEmpty
+                            ? 'Check Result'
+                            : 'Upload Selected (${state.selectedAsset.length})',
+                      ),
+              ),
+            );
+          },
         ),
       ),
     );

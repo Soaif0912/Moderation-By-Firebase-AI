@@ -33,3 +33,12 @@ class SelectAssetEvent extends ModerationEvent {
 class ClearSelectedAssetEvent extends ModerationEvent {
   const ClearSelectedAssetEvent();
 }
+
+class UploadMediaEvent extends ModerationEvent {
+  const UploadMediaEvent();
+}
+
+class CheckResultEvent extends ModerationEvent {
+  const CheckResultEvent();
+}
+
